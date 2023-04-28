@@ -14,7 +14,7 @@ public class EchoLocation : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0)) //left click, raycast on environment
         {
-            //print("0");
+            RayCast(0, false);
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse1)) //right click, raycast to end, ignore environment
@@ -25,13 +25,15 @@ public class EchoLocation : MonoBehaviour
 
     private void FixedUpdate()
     {
+        float raycast_length = 10f;
+
         Vector3 fwd = transform.TransformDirection(Vector3.forward);
 
         Vector3 line = new Vector3 (transform.position.x, transform.position.y + 1.5f, transform.position.z);
 
-        Debug.DrawRay(line, fwd * 10, Color.black);
+        Debug.DrawRay(line, fwd * raycast_length, Color.black);
 
-        if (Physics.Raycast(transform.position, fwd, 10))
+        if (Physics.Raycast(transform.position, fwd, raycast_length))
         {
             print("There is something in front of the object!");
         }
