@@ -56,17 +56,25 @@ public class EchoLocation : MonoBehaviour
 
     private void Reaction(float scale) 
     {
-        if (scale >= 50)
+        if (scale >= 100)
         {
-            print("far");
+            print("long");
         }
-        else if (scale >= 25)
+        else if (scale >= 75)
+        {
+            print("medium (long)");
+        }
+        else if (scale >= 50)
         {
             print("medium");
         }
+        else if (scale >= 25)
+        {
+            print("medium (short)");
+        }
         else 
         {
-            print("near");
+            print("short");
         }
     }
 }
