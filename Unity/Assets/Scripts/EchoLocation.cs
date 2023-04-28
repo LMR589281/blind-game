@@ -6,6 +6,7 @@ public class EchoLocation : MonoBehaviour
 {
     private bool Raycasting;
     private bool Raycasted;
+    private float RaycastRechrage = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -63,13 +64,13 @@ public class EchoLocation : MonoBehaviour
         }
     }
 
-    IEnumerator StartRaycast() 
+    private IEnumerator StartRaycast() 
     {
         print("start raycast");
         Raycasting = true;
         Raycasted = false;
 
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(RaycastRechrage);
 
         print("raycast over");
         Raycasting = false;
