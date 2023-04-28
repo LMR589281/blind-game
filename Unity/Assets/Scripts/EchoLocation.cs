@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
+using Unity.VisualScripting;
 
 public class EchoLocation : MonoBehaviour
 {
@@ -26,7 +27,8 @@ public class EchoLocation : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse1)) //right click, raycast to end, ignore environment
         {
-            Distance();
+            float distanceToOrb = Vector3.Distance(transform.position, orb.transform.position);
+            Reaction(distanceToOrb);
         }
     }
 
@@ -93,16 +95,5 @@ public class EchoLocation : MonoBehaviour
         {
             print("near");
         }
-    }
-
-    private void Distance() 
-    {
-        float distance = 0;
-
-        distance = Vector3.Distance(transform.position, orb.transform.position);
-
-        Reaction(distance);
-
-        //return distance???
     }
 }
