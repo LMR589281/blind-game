@@ -6,30 +6,22 @@ using Unity.VisualScripting;
 public class EchoLocation : MonoBehaviour
 {
     [SerializeField] private GameObject orb;
-    private float RaycastRechrage = 1;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0)) //left click, raycast on environment
         {
-            Raycast2();
+            EcholocateForward();
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse1)) //right click, raycast to end, ignore environment
         {
-            float distanceToOrb = Vector3.Distance(transform.position, orb.transform.position);
-            Reaction(distanceToOrb);
+            EcholocateOrb();
         }
     }
 
-    private void Raycast2()
+    private void EcholocateForward()
     {
         RaycastHit hit;
         float raycast_length = 1000; //Mathf.Infinity
@@ -47,6 +39,12 @@ public class EchoLocation : MonoBehaviour
         {
             //print("nothing");
         }
+    }
+
+    private void EcholocateOrb()
+    {
+        float distanceToOrb = Vector3.Distance(transform.position, orb.transform.position);
+        Reaction(distanceToOrb);
     }
 
     private void Reaction(float scale) 
