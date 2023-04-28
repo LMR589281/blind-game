@@ -51,7 +51,7 @@ public class EchoLocation : MonoBehaviour
 
     private void RestRotation() 
     {
-
+        transform.rotation = Quaternion.LookRotation(Vector3.forward);
     }
 
     private void Reaction(float scale) 
