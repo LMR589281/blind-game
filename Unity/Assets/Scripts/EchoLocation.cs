@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 
 public class EchoLocation : MonoBehaviour
 {
+    [SerializeField] private GameObject orb;
+
     private bool Raycasting;
     private bool Raycasted;
     private float RaycastRechrage = 1;
@@ -24,7 +26,7 @@ public class EchoLocation : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse1)) //right click, raycast to end, ignore environment
         {
-            //print("1");
+            Distance();
         }
     }
 
@@ -91,5 +93,16 @@ public class EchoLocation : MonoBehaviour
         {
             print("near");
         }
+    }
+
+    private void Distance() 
+    {
+        float distance = 0;
+
+        distance = Vector3.Distance(transform.position, orb.transform.position);
+
+        Reaction(distance);
+
+        //return distance???
     }
 }
