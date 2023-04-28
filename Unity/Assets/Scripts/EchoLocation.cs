@@ -41,6 +41,9 @@ public class EchoLocation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown("space"))
+        {
+            print("space key was pressed");
+        }
     }
 }
