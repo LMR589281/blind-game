@@ -19,6 +19,10 @@ public class EchoLocation : MonoBehaviour
         {
             EcholocateOrb();
         }
+        if (Input.GetKeyDown(KeyCode.R)) //reset player rotation
+        {
+            RestRotation();
+        }
     }
 
     private void EcholocateForward()
@@ -45,6 +49,11 @@ public class EchoLocation : MonoBehaviour
     {
         float distanceToOrb = Vector3.Distance(transform.position, orb.transform.position);
         Reaction(distanceToOrb);
+    }
+
+    private void RestRotation() 
+    {
+
     }
 
     private void Reaction(float scale) 
