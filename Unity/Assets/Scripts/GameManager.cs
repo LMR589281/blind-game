@@ -4,15 +4,31 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static GameManager Instance { get; private set; }
+
+    private TheOrb orb;
+
+    private void Awake()
     {
-        
+        // If there is an instance, and it's not me, delete myself.
+
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public TheOrb GetOrb() 
     {
-        
+        return orb;
+    }
+
+    public void SetOrb(TheOrb value) 
+    {
+        orb = value;
     }
 }

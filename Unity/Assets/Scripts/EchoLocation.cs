@@ -5,8 +5,6 @@ using Unity.VisualScripting;
 
 public class EchoLocation : MonoBehaviour
 {
-    [SerializeField] private GameObject orb;
-
     // Update is called once per frame
     void Update()
     {
@@ -47,7 +45,7 @@ public class EchoLocation : MonoBehaviour
 
     private void EcholocateOrb()
     {
-        float distanceToOrb = Vector3.Distance(transform.position, orb.transform.position);
+        float distanceToOrb = Vector3.Distance(transform.position, GameManager.Instance.GetOrb().transform.position);
         Reaction(distanceToOrb);
     }
 
