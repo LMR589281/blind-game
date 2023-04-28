@@ -41,14 +41,14 @@ public class EchoLocation : MonoBehaviour
             if (Physics.Raycast(transform.position, fwd, out hit, raycast_length))
             {
                 Raycasted = true;
-                print("There is something in front of the object!");
-                print("Found an object - distance: " + hit.distance);
+                //print("There is something in front of the object!");
+                //print("Found an object - distance: " + hit.distance);
                 Reaction(hit.distance);
             }
             else
             {
                 Raycasted = true;
-                print("nothing");
+                //print("nothing");
             }
         }
     }
