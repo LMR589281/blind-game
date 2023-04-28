@@ -6,9 +6,6 @@ using Unity.VisualScripting;
 public class EchoLocation : MonoBehaviour
 {
     [SerializeField] private GameObject orb;
-
-    private bool Raycasting;
-    private bool Raycasted;
     private float RaycastRechrage = 1;
 
     // Start is called before the first frame update
@@ -22,7 +19,7 @@ public class EchoLocation : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0)) //left click, raycast on environment
         {
-            RayCast(0, false);
+            Raycast2();
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse1)) //right click, raycast to end, ignore environment
@@ -32,53 +29,24 @@ public class EchoLocation : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private void Raycast2()
     {
-        if (Raycasting && !Raycasted)
+        RaycastHit hit;
+        float raycast_length = 1000; //Mathf.Infinity
+        Vector3 fwd = transform.TransformDirection(Vector3.forward);
+        Vector3 line = new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z);
+
+        Debug.DrawRay(line, fwd * raycast_length, Color.black, 3);
+        if (Physics.Raycast(transform.position, fwd, out hit, raycast_length))
         {
-            RaycastHit hit;
-            float raycast_length = Mathf.Infinity; //10
-            Vector3 fwd = transform.TransformDirection(Vector3.forward);
-            Vector3 line = new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z);
-
-            Debug.DrawRay(line, fwd * raycast_length, Color.black);
-            if (Physics.Raycast(transform.position, fwd, out hit, raycast_length))
-            {
-                Raycasted = true;
-                //print("There is something in front of the object!");
-                //print("Found an object - distance: " + hit.distance);
-                Reaction(hit.distance);
-            }
-            else
-            {
-                Raycasted = true;
-                //print("nothing");
-            }
+            //print("There is something in front of the object!");
+            //print("Found an object - distance: " + hit.distance);
+            Reaction(hit.distance);
         }
-    }
-
-    private void RayCast(float location, bool xray) 
-    {
-        int distance;
-        //return distance;
-
-        if (!Raycasting) 
+        else
         {
-            StartCoroutine(StartRaycast());
+            //print("nothing");
         }
-    }
-
-    private IEnumerator StartRaycast() 
-    {
-        print("start raycast");
-        Raycasting = true;
-        Raycasted = false;
-
-        yield return new WaitForSeconds(RaycastRechrage);
-
-        print("raycast over");
-        Raycasting = false;
-        Raycasted = true;
     }
 
     private void Reaction(float scale) 
