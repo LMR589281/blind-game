@@ -3,35 +3,6 @@ using UnityEngine.InputSystem;
 
 public class EchoLocation : MonoBehaviour
 {
-    private Controls controls;
-
-    private void Awake()
-    {
-        controls = new Controls();
-    }
-
-    private void OnEnable()
-    {
-        controls.Player.EchoLocal.performed += Local_Cast;
-        controls.Player.EchoFar.performed += End_Cast;
-    }
-
-    private void OnDisable()
-    {
-        controls.Player.EchoLocal.performed -= Local_Cast;
-        controls.Player.EchoFar.performed -= End_Cast;
-    }
-
-    private void Local_Cast(InputAction.CallbackContext ctx) 
-    {
-        print("local");
-    }
-
-    private void End_Cast(InputAction.CallbackContext ctx)
-    {
-        print("end");
-    }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -41,9 +12,37 @@ public class EchoLocation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("space"))
+        if (Input.GetKeyDown(KeyCode.Mouse0)) //left click, raycast on environment
         {
-            print("space key was pressed");
+            //print("0");
         }
+
+        if (Input.GetKeyDown(KeyCode.Mouse1)) //right click, raycast to end, ignore environment
+        {
+            //print("1");
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        Vector3 fwd = transform.TransformDirection(Vector3.forward);
+
+        Vector3 line = new Vector3 (transform.position.x, transform.position.y + 1.5f, transform.position.z);
+
+        Debug.DrawRay(line, fwd * 10, Color.black);
+
+        if (Physics.Raycast(transform.position, fwd, 10))
+        {
+            print("There is something in front of the object!");
+        }
+        else
+        {
+            print("nothing");
+        }
+    }
+
+    private void RayCast(float location, bool xray) 
+    {
+
     }
 }
