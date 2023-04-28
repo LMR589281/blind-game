@@ -4,6 +4,9 @@ using UnityEngine.InputSystem;
 
 public class EchoLocation : MonoBehaviour
 {
+    private bool Raycasting;
+    private bool Raycasted;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,25 +29,26 @@ public class EchoLocation : MonoBehaviour
 
     private void FixedUpdate()
     {
-        RaycastHit hit;
-
-        float raycast_length = Mathf.Infinity; //10
-
-        Vector3 fwd = transform.TransformDirection(Vector3.forward);
-
-        Vector3 line = new Vector3 (transform.position.x, transform.position.y + 1.5f, transform.position.z);
-
-        Debug.DrawRay(line, fwd * raycast_length, Color.black);
-
-        if (Physics.Raycast(transform.position, fwd, out hit, raycast_length))
+        if (Raycasting && !Raycasted)
         {
-            print("There is something in front of the object!");
-            print("Found an object - distance: " + hit.distance);
-            Reaction(hit.distance);
-        }
-        else
-        {
-            print("nothing");
+            RaycastHit hit;
+            float raycast_length = Mathf.Infinity; //10
+            Vector3 fwd = transform.TransformDirection(Vector3.forward);
+            Vector3 line = new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z);
+
+            Debug.DrawRay(line, fwd * raycast_length, Color.black);
+            if (Physics.Raycast(transform.position, fwd, out hit, raycast_length))
+            {
+                Raycasted = true;
+                print("There is something in front of the object!");
+                print("Found an object - distance: " + hit.distance);
+                Reaction(hit.distance);
+            }
+            else
+            {
+                Raycasted = true;
+                print("nothing");
+            }
         }
     }
 
@@ -52,18 +56,24 @@ public class EchoLocation : MonoBehaviour
     {
         int distance;
         //return distance;
+
+        if (!Raycasting) 
+        {
+            StartCoroutine(StartRaycast());
+        }
     }
 
-    IEnumerator ExampleCoroutine()
+    IEnumerator StartRaycast() 
     {
-        //Print the time of when the function is first called.
-        Debug.Log("Started Coroutine at timestamp : " + Time.time);
+        print("start raycast");
+        Raycasting = true;
+        Raycasted = false;
 
-        //yield on a new YieldInstruction that waits for 5 seconds.
         yield return new WaitForSeconds(5);
 
-        //After we have waited 5 seconds print the time again.
-        Debug.Log("Finished Coroutine at timestamp : " + Time.time);
+        print("raycast over");
+        Raycasting = false;
+        Raycasted = true;
     }
 
     private void Reaction(float scale) 
